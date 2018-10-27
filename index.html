@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>React testing</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .container {border: 1px solid black}
+        
+        </style>
+</head>
+<body>
+        <div class = "container" id="root"></div>
+        <div class = "container" id="root1"></div>
+        <div class = "container" id="root2"></div>
+        <div class = "container" id="root3"></div>
+        <div class = "container" id="root4"></div>
+        <div class = "container" id="root5"></div>
+        <div class = "container" id="root6"></div>
+        <div class = "container" id="root7"></div>
+        <div class = "container" id="root8"></div>
+        <div class = "container" id="root9"></div>
+        <div class = "container" id="root10"></div>
+        <div class = "container" id="root11"></div>
+        <div class = "container" id="root12"></div>
+        <div class = "container" id="root13"></div>
+        <div class = "container" id="root14"></div>
+        <div class = "container" id="root15"></div>
+        <div class = "container" id="root16"></div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
+        <script type="text/babel">
+        class Greeting extends React.Component {
+            render() {
+                return (<p>Hello world</p>);
+            }
+        }
+        ReactDOM.render(
+            <Greeting />,
+            document.getElementById('root')
+        );
+//Created simple JSX element
+        const JSX1 = <p>This is simple JSX element</p>
+//Render with ReactDOM.render(componentToRender, targetNode)
+        ReactDOM.render(JSX1, document.getElementById("root1"));
+
+//Simple JSX with more then one html tag, all tags have to be nested in one tag
+        const JSX2 = (<div>
+        <h2>This is constant with more then one html tag </h2>
+        <p>h2 tag and p tag nested in div</p>
+        </div>);
+        ReactDOM.render(JSX2, document.getElementById("root2"));
+
+//Defining class on html tag in JSX, camelCase for className instead of class
+        const JSX3 = (<div className = "myDiv">
+        <p>Added class on html tag with react</p>
+        </div>);
+        ReactDOM.render(JSX3, document.getElementById("root3"));
+
+//First way of crating react component is with stateless functional component
+//Capital letter is required while naming stateless function component
+//While rendering instead of const name, stateless function must be called MyComponent()
+        const MyComponent = function () {
+            return (<div>This is stateless functional component</div>);
+        }; 
+        ReactDOM.render(MyComponent(), document.getElementById("root4"));
+
+//Second way of creating react component is with ES6 class syntax
+        class MyComponent1 extends React.Component{
+            constructor(props){
+                super(props);
+            }
+            render(){
+                return(<div>This is class component</div>);
+            }
+        };
+//While rendering instead of stateless function call, class component is in tag siyntax <ClassName/>
+        ReactDOM.render(<MyComponent1/>, document.getElementById("root5"));
+
+//Nesting statless function in class component 
+        const DijeteKomponenta = () => {
+            return(<div><p>This is child component</p></div>);
+        };
+
+        class RoditeljKomponenta extends React.Component{
+            constructor(props){
+                super(props);
+            }
+            render (){
+                return (<div>
+                <p>This is parent component</p>
+                <DijeteKomponenta />
+                </div>); 
+            }
+        }
+        ReactDOM.render(<RoditeljKomponenta/>, document.getElementById("root6"));
+
+//Nesting two diferent class components 
+        const DrugiLevel = () => {
+            return(<div><p>Nesting komponenti kroz stateless functions</p></div>);
+        };
+
+        const PrviLevel = () => {
+            return(<div><p>Prvi level nestinga sa drugim levelom</p>
+            <DrugiLevel/>
+            <RoditeljKomponenta/>
+            </div>);
+        };
+//Rendering in two diferent ways <PrviLevel/> and PrviLevel()
+       ReactDOM.render(<PrviLevel/>, document.getElementById("root7"));
+
+//ReactDOM.render(PrviLevel(), document.getElementById("root7"));
+
+//Passing propertyes to a stateless functional component as argument 
+        const CurrentDate = (props) => {
+            return(<div><p>Trenutni datum je : {props.date}</p></div>);
+        };
+//class component, call on stateless function and passing property/argument
+//prop value to be evaluated as JS must be enclosed in curly brackets
+        class Calendar extends React.Component{
+            constructor(props){
+                super(props);
+            }
+            render(){
+                return (<div> 
+                <CurrentDate date = {Date()}/>
+                </div>);
+            };
+        };
+        ReactDOM.render(<Calendar/>, document.getElementById("root8"));
+
+//Passing an Array as property,to pass an array to JSX it must be treated as JS, wraped in curly brackets, to acces it with JSX join(", ") must be used.
+//transforming array tasks in to a string
+        const List =(props) => {
+            return <p>{props.tasks.join(", ")}</p>
+        };
+
+        class ToDo extends React.Component {
+            constructor(props){
+                super(props);
+        }
+        render(){
+            return (
+                <div>
+                    <h1>To Do Lists</h1>
+                    <h2>Today's list</h2>
+                    <List tasks={["task1", "task2", "task3"]} />
+                    <h2>Tomorrow</h2>
+                    <List tasks={["task4", "task5"]} />
+                </div>
+            );
+        }
+        };
+        ReactDOM.render(<ToDo/>, document.getElementById("root9"));
+        
+
+//seting default property .defaultProps
+        const ShoppingCart = (props) => {
+            return (<div>
+                <h1>Shoping Cart component, items :  {props.item}</h1>
+                </div>)
+        };
+        ShoppingCart.defaultProps = {item: 0};
+        
+        ReactDOM.render(<ShoppingCart/>, document.getElementById("root10"));
+
+//Overriding default property, by seting the prop value 
+//declaring items component
+        const Items = (props) => {
+            return (<h1>Current quantity of items in cart2 is: {props.quantity}</h1>)
+        }; 
+//seting default value of items
+        Items.defaultProps = {
+            quantity: 0
+        }
+//declaring ShoppingCart2, rendering ShoppingCart2, with argument (new walue of quantity)
+        class ShoppingCart2 extends React.Component {
+            constructor(props){
+                super(props);
+            }
+            render(){
+                return (<Items quantity={10}/>);
+            }
+        };
+
+        ReactDOM.render(<ShoppingCart2/>, document.getElementById("root11"));
+
+//properties type checking
+        
+</script>
+</body>
+</html>
