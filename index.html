@@ -260,7 +260,26 @@
         };
         ReactDOM.render(<MyComponent2 />, document.getElementById("root15"));
 
-        
+//Updating component state setState()
+
+            class MyComponent3 extends React.Component{
+                constructor(props){
+                    super(props);
+                    this.state = {name: "initial state"};
+                    this.HandlingaClick = this.HandlingaClick.bind(this);
+                }
+
+                HandlingaClick (){
+                    this.setState({name: "New name React Rocks"})
+                }
+                render(){
+                    return(<div>
+                    <button onClick = {this.HandlingaClick}>Click Me</button>
+                    <h1>{this.state.name}</h1>
+                    </div>)
+                }
+            };
+            ReactDOM.render(<MyComponent3/>, document.getElementById("root16"));
 
 </script>
 
