@@ -304,7 +304,36 @@
                 }
             }
             ReactDOM.render(<MyComponent4 />, document.getElementById("root17"));
+
+//using state to toggle an element
+            class MyComponent5 extends React.Component {
+                constructor(props){
+                    super(props);
+                    this.state = {visibility: false };
+                    this.toggleVisibility = this.toggleVisibility.bind(this);
+                }
+
+                toggleVisibility(){
+                    if(this.state.visibility == true){
+                        this.setState({visibility: false});
+                    } else {
+                        this.setState({visibility: true})
+                    }
+                }
+                   
+                    render(){
+                        if(this.state.visibility == true){
+                            return (<div><button onClick = {this.toggleVisibility}>OFF</button>
+                            <h1>Now you see me</h1></div>);
+                        } else {
+                            return (<div><button onClick = {this.toggleVisibility}>ON</button></div>)
+                        }
+                    }
+                }
+
             
+            ReactDOM.render(<MyComponent5 />, document.getElementById("root18"));
+
 </script>
 
 </body>
