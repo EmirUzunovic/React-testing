@@ -234,10 +234,33 @@
         };
         ReactDOM.render(<ResetPassword/>, document.getElementById("root13"));
 
-//using props with stateless functional component
+//Create a stateful component,state is created in class component in its constructor, state must be set to JS object
+//To render it it needs to be in {}
+        class StatefulComponent extends React.Component {
+            constructor(props){
+                super(props);
+                this.state = {name: "Emir", lastName: "Uzunovic"};
+            }
+            render(){
+                return (<div><h1>State of statefulComponent is : {this.state.lastName}</h1></div>);
+            }
+        };
+        ReactDOM.render(<StatefulComponent/>,document.getElementById("root14"));
 
+//Rendering state in a different way,in render before return without {}
+        class MyComponent2 extends React.Component {
+            constructor(props){
+                super(props);
+                this.state = {name: "freeCodeCamp"}
+            };
+            render(){
+                const NameFromState = this.state.name
+                return (<div><p>This is const declared in render {NameFromState}</p></div>)
+            }
+        };
+        ReactDOM.render(<MyComponent2 />, document.getElementById("root15"));
 
-
+        
 
 </script>
 
