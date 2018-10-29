@@ -28,6 +28,11 @@
         <div class = "container" id="root14"></div>
         <div class = "container" id="root15"></div>
         <div class = "container" id="root16"></div>
+        <div class = "container" id="root17"></div>
+        <div class = "container" id="root18"></div>
+        <div class = "container" id="root19"></div>
+        <div class = "container" id="root20"></div>
+        <div class = "container" id="root21"></div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
@@ -261,7 +266,6 @@
         ReactDOM.render(<MyComponent2 />, document.getElementById("root15"));
 
 //Updating component state setState()
-
             class MyComponent3 extends React.Component{
                 constructor(props){
                     super(props);
@@ -281,6 +285,26 @@
             };
             ReactDOM.render(<MyComponent3/>, document.getElementById("root16"));
 
+//define metods in class component, updating state 
+            class MyComponent4 extends React.Component{
+                constructor(props){
+                    super(props);
+                    this.state = {itemCount: 0};
+                    this.addItem = this.addItem.bind(this);
+                }
+                
+                addItem (){this.setState({itemCount: this.state.itemCount + 1})}
+                render(){
+                    return(
+                    <div>
+                    <button onClick = {this.addItem}>Add one</button>
+                    <h1>Current item count is {this.state.itemCount}</h1>
+                    
+                    </div>)
+                }
+            }
+            ReactDOM.render(<MyComponent4 />, document.getElementById("root17"));
+            
 </script>
 
 </body>
